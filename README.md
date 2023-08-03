@@ -3,7 +3,7 @@
     <img src="https://github.com/Noovolari/leapp/blob/master/.github/images/README-1-dark.png#gh-light-mode-only" alt="Leapp" height="150" />
 </p>
 
-# Leapp SSM ECS COMMAND EXECUTION
+# Leapp ECS SSM COMMAND EXECUTION
 
 ## Introduction
 This plugin simplify the process of executing command against your conatiners deployed in AWS ECS cluster through SSM
