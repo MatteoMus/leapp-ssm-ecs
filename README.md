@@ -25,3 +25,15 @@ The plugin is a python script.
 1. Python 3.X.X installed.
 1. Module Boto3 installed in python
 
+## HOW TO INSTALL
+
+Clone the repository and run:
+
+```npm run build```
+
+This command creates a folder named ```leapp-ssm-ecs-exec```
+
+Copy this folder under your Leapp plugins folder:
+
+```cp -r ./leapp-ssm-ecs-exec ~/.Leapp/plugins/leapp-ssm-ecs-exec```
+
