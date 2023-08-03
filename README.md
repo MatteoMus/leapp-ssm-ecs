@@ -6,10 +6,10 @@
 # Leapp ECS SSM COMMAND EXECUTION
 
 ## Introduction
-This plugin simplify the process of executing command against your conatiners deployed in AWS ECS cluster through SSM
+This plugin simplify the process of executing command against your containers deployed in AWS ECS cluster through SSM.
 
 ## How it works
-The plugin makes use of AWS Systems Manager (SSM) Session Manager to establish a connection with the running container and runs commands in a running container.
+The plugin makes use of AWS Systems Manager (SSM) Session Manager to establish a connection with the running container and runs commands.
 Executing the plugin, a terminal is open, asking interactively for some inputs:
 
 1. Cluster ECS
