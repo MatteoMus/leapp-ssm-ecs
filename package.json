@@ -1,14 +1,15 @@
 {
-  "name": "example-plugin",
+  "name": "leapp-ssm-ecs-exec",
   "author": { 
-    "name": "Your Author name.surname",
-    "email": "Your email" 
+    "name": "matteo.mus",
+    "email": "matteo.mus.mm@gmail.com" 
   },
-  "version": "Your semver version here e.g. 1.0.0",
-  "description": "Your plugin description here",
+  "version": "1.0.0",
+  "description": "Execute a command in your AWS ECS container through SSM",
   "keywords": [
     "leapp-plugin",
-    "Add other tags here..."
+    "AWS ECS",
+    "SSM"
   ],
   "leappPlugin": {
     "supportedOS": [
@@ -19,8 +20,7 @@
       "awsIamRoleChained",
       "awsSsoRole",
       "awsIamUser",
-      "aws",
-      "azure"
+      "aws"
     ]
   },
   "scripts": {

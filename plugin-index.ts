@@ -1,1 +1,1 @@
-export { ExamplePlugin } from "./example-plugin";
+export { LeappSsmECSExec } from "./leapp-ssm-ecs-exec";
