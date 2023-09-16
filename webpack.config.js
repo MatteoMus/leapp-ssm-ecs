@@ -18,8 +18,8 @@ module.exports = {
       patterns: [
         { from: './package.json',
           to: `./package.json`},
-        { from: './python-boto3-ecs.py',
-          to: `./python-boto3-ecs.py`}  
+        { from: './ecs.sh',
+          to: `./ecs.sh`}  
       ]
     })
   ],

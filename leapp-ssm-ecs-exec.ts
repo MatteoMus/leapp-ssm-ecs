@@ -20,7 +20,7 @@ export class LeappSsmECSExec extends AwsCredentialsPlugin {
       AWS_REGION: session.region
     };
 
-    this.pluginEnvironment.openTerminal("python ~/.Leapp/plugins/leapp-ssm-ecs-exec/python-boto3-ecs.py", env)
+    this.pluginEnvironment.openTerminal("sh ~/.Leapp/plugins/leapp-ssm-ecs-exec/ecs.sh", env)
       .then(() => {
         this.pluginEnvironment.log("Terminal command successfully started", PluginLogLevel.info, true);
       })
