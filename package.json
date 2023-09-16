@@ -13,7 +13,7 @@
   ],
   "leappPlugin": {
     "supportedOS": [
-      "mac", "windows", "linux"
+      "mac", "linux"
     ],
     "supportedSessions": [
       "awsIamRoleFederated",

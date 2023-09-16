@@ -18,12 +18,12 @@ Executing the plugin, a terminal is open, asking interactively for some inputs:
 1. Container
 1. Command to execute
 
-The plugin is a python script.
+The plugin is a bash script.
 
 ## Prerequisites
 
-1. Python 3.X.X installed.
-1. Module Boto3 installed in python
+1. OS: Linux, macOS
+1. jq
 
 ## HOW TO INSTALL
 
