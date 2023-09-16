@@ -1,80 +1,73 @@
 #! /bin/bash
 
-json_data=$(aws ecs list-clusters)
-#json_data='
-#{
-#    "clusterArns": [
-#        "arn:aws:ecs:eu-west-1:111192885848:cluster/futurefashion-wp",
-#        "arn:aws:ecs:eu-west-1:111192885848:cluster/futurefashion-wpp"
-#    ]
-#}
-#'
-list_arns=($(echo "$json_data" | jq -r '.clusterArns[]'))
-#first_element=${cluster_arns[1]}
-#echo "First element: $first_element"
-echo "\nClusters:\n"
-i=0
-for arn in "${list_arns[@]}"; do
-    IFS='/'
-    arn_parts=($arn)
-    unset IFS
-    echo "$i) ${arn_parts[1]}"
-    i=$((i+1))
-done
-echo ""
+print_list_1() {
+    local list_arns=("${@:2}")
+    local segment=$1
+    i=0
+    for arn in "${list_arns[@]}"; do
+        IFS='/'
+        arn_parts=($arn)
+        unset IFS
+        echo "$i) ${arn_parts[$segment]}"
+        i=$((i+1))
+    done
+}
 
-cluster=${list_arns[$(read -p "Select cluster: " choice; echo $choice)]}
+print_list_2() {
+    local list_names=("${@}")
+    i=0
+    for name in "${list_names[@]}"; do
+        echo "$i) $name"
+        i=$((i+1))
+    done
+}
+
+############### CLUSTERS ################
+json_data=$(aws ecs list-clusters)
+list_arns=($(echo "$json_data" | jq -r '.clusterArns[]'))
+echo "\nClusters:\n"
+print_list_1 1 "${list_arns[@]}"
+echo ""
+read -p "Select cluster: " choice
+cluster=${list_arns[$choice]}
 
 ############## SERVICES ################
 json_data=$(aws ecs list-services --cluster "$cluster")
 list_arns=($(echo "$json_data" | jq -r '.serviceArns[]'))
-
 echo "\nServices:\n"
-i=0
-for arn in "${list_arns[@]}"; do
-    IFS='/'
-    arn_parts=($arn)
-    unset IFS
-    echo "$i) ${arn_parts[2]}"
-    i=$((i+1))
-done
-#echo "$i) No service"
+print_list_1 2 "${list_arns[@]}"
 echo ""
-
-service=${list_arns[$(read -p "Select service: " choice; echo $choice)]}
+read -p "Select service [Leave blank to no filter by services]: " choice
+choice="${choice:-null}"
+if [ "$choice" != "null" ]; then
+    service=${list_arns[$choice]}
+else
+    service=null
+fi
 
 ############## TASKS ################
-json_data=$(aws ecs list-tasks --cluster "$cluster" --service-name "$service")
+if [ "$service" != "null" ]; then
+    json_data=$(aws ecs list-tasks --cluster "$cluster" --service-name "$service")
+else
+    json_data=$(aws ecs list-tasks --cluster "$cluster")
+fi
+
 list_arns=($(echo "$json_data" | jq -r '.taskArns[]'))
-
 echo "\nTasks:\n"
-i=0
-for arn in "${list_arns[@]}"; do
-    IFS='/'
-    arn_parts=($arn)
-    unset IFS
-    echo "$i) ${arn_parts[2]}"
-    i=$((i+1))
-done
+print_list_1 2 "${list_arns[@]}"
 echo ""
-
-task=${list_arns[$(read -p "Select task: " choice; echo $choice)]}
-#echo $task
+read -p "Select task: " choice
+task=${list_arns[$choice]}
 
 ############## CONTAINERS ################
 tasks=("$task")
 json_data=$(aws ecs describe-tasks --cluster "$cluster" --tasks "$tasks")
 list_names=($(echo "$json_data" | jq -r '.tasks[0].containers[].name'))
-
 echo "\nContainers:\n"
-i=0
-for name in "${list_names[@]}"; do
-    echo "$i) $name"
-    i=$((i+1))
-done
+print_list_2 "${list_names[@]}"
 echo ""
-
-container=${list_names[$(read -p "Select container: " choice; echo $choice)]}
+read -p "Select container: " choice
+container=${list_names[$choice]}
 
 ############ COMMAND ####################
 read -p "Type command to execute [default /bin/sh]: " command
