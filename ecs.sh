@@ -70,6 +70,7 @@ read -p "Select container: " choice
 container=${list_names[$choice]}
 
 ############ COMMAND ####################
+echo ""
 read -p "Type command to execute [default /bin/sh]: " command
 command="${command:-/bin/sh}"
 
